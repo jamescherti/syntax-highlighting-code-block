@@ -463,34 +463,34 @@ function inject_markup( string $pre_start_tag, string $code_start_tag, array $at
 
 	$end_tags = '</code></span>';
 
-	// Add language label if one was detected and if we're not in a feed.
-	if ( ! is_feed() && ! empty( $attributes['language'] ) ) {
-		$language_names = get_language_names();
-		$language_name  = $language_names[ $attributes['language'] ] ?? $attributes['language'];
-
-		$element_id = wp_unique_id( 'shcb-language-' );
-
-		// Add the language info to markup with semantic label.
-		$end_tags .= sprintf(
-			'<small class="shcb-language" id="%s"><span class="shcb-language__label">%s</span> <span class="shcb-language__name">%s</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">%s</span><span class="shcb-language__paren">)</span></small>',
-			esc_attr( $element_id ),
-			esc_html__( 'Code language:', 'syntax-highlighting-code-block' ),
-			esc_html( $language_name ),
-			esc_html( $attributes['language'] )
-		);
-
-		// Also include the language in data attributes on the root <pre> element for maximum styling flexibility.
-		$pre_start_tag = str_replace(
-			'>',
-			sprintf(
-				' aria-describedby="%s" data-shcb-language-name="%s" data-shcb-language-slug="%s">',
-				esc_attr( $element_id ),
-				esc_attr( $language_name ),
-				esc_attr( $attributes['language'] )
-			),
-			$pre_start_tag
-		);
-	}
+	// DISABLED: Add language label if one was detected and if we're not in a feed.
+	// if ( ! is_feed() && ! empty( $attributes['language'] ) ) {
+	// 	$language_names = get_language_names();
+	// 	$language_name  = $language_names[ $attributes['language'] ] ?? $attributes['language'];
+    // 
+	// 	$element_id = wp_unique_id( 'shcb-language-' );
+    // 
+	// 	// Add the language info to markup with semantic label.
+	// 	$end_tags .= sprintf(
+	// 		'<small class="shcb-language" id="%s"><span class="shcb-language__label">%s</span> <span class="shcb-language__name">%s</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">%s</span><span class="shcb-language__paren">)</span></small>',
+	// 		esc_attr( $element_id ),
+	// 		esc_html__( 'Code language:', 'syntax-highlighting-code-block' ),
+	// 		esc_html( $language_name ),
+	// 		esc_html( $attributes['language'] )
+	// 	);
+    // 
+	// 	// Also include the language in data attributes on the root <pre> element for maximum styling flexibility.
+	// 	$pre_start_tag = str_replace(
+	// 		'>',
+	// 		sprintf(
+	// 			' aria-describedby="%s" data-shcb-language-name="%s" data-shcb-language-slug="%s">',
+	// 			esc_attr( $element_id ),
+	// 			esc_attr( $language_name ),
+	// 			esc_attr( $attributes['language'] )
+	// 		),
+	// 		$pre_start_tag
+	// 	);
+	// }
 	$end_tags .= '</pre>';
 
 	return $pre_start_tag . '<span>' . $code_start_tag . escape( $content ) . $end_tags;
